@@ -1,0 +1,12 @@
+[submodule "modules/core"]
+	path = modules/core
+	url = ../DragonCore
+[submodule "modules/audio"]
+	path = modules/audio
+	url = ../DragonAudio
+[submodule "modules/compute"]
+	path = modules/compute
+	url = ../DragonCompute
+[submodule "modules/physics"]
+	path = modules/physics
+	url = ../DragonPhysics
