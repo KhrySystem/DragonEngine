@@ -1,0 +1,33 @@
+name: cmake-ios
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  ios-11:
+    name: iOS 11
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
+        cfg: [ Debug, Release ]
+
+    steps:
+    - uses: actions/checkout@v3.5
+    - run: git submodule update --init --recursive
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    - uses: humbletim/setup-vulkan-sdk@v1.2.0
+      with:
+        vulkan-query-version: latest 
+        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
+        vulkan-use-cache: true
+    - run: |
+        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
+        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}

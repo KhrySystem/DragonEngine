@@ -1,0 +1,52 @@
+name: cmake-windows
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  windows-2022:
+    name: Windows 2022
+    runs-on: windows-2022
+
+    strategy:
+      matrix:
+        type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
+        cfg: [ Debug, Release ]
+
+    steps:
+    - uses: actions/checkout@v3.5
+    - run: git submodule update --init --recursive
+    - uses: humbletim/setup-vulkan-sdk@v1.2.0
+      with:
+        vulkan-query-version: latest 
+        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
+        vulkan-use-cache: true
+    - run: |
+        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
+        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}
+
+  windows-2019:
+    name: Windows 2019
+    runs-on: windows-2019
+
+    strategy:
+      matrix:
+        type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
+        cfg: [ Debug, Release ]
+
+    steps:
+    - uses: actions/checkout@v3.5
+    - run: git submodule update --init --recursive
+    - uses: humbletim/setup-vulkan-sdk@v1.2.0
+      with:
+        vulkan-query-version: latest 
+        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
+        vulkan-use-cache: true
+    - run: |
+        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
+        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}

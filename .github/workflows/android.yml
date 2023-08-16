@@ -1,0 +1,11 @@
+name: cmake-ios
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  android-10:
+    

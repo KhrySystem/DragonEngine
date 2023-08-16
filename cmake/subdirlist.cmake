@@ -1,0 +1,8 @@
+macro(subdirlist directory result)
+    file(GLOB children RELATIVE ${directory} ${directory}/*)
+    foreach(child ${children})
+        if(IS_DIRECTORY ${directory}/${child})
+            list(APPEND ${result} ${child})
+        endif()
+    endforeach()
+endmacro()
