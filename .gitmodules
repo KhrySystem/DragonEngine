@@ -10,3 +10,6 @@
 [submodule "modules/physics"]
 	path = modules/physics
 	url = ../DragonPhysics
+[submodule "modules/graphics"]
+	path = modules/graphics
+	url = ../DragonGraphics
