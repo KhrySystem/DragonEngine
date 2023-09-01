@@ -1,4 +1,4 @@
-name: cmake-ios
+name: cmake-android
 
 on:
   push:
@@ -8,4 +8,23 @@ on:
 
 jobs:
   android-10:
+    name: Android 10
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
+        cfg: [ Debug, Release ]
     
+    steps:
+    - uses: actions/checkout@v3.5
+    - run: sudo apt update && sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libc6-dev && git submodule update --init --recursive
+    - uses: humbletim/setup-vulkan-sdk@v1.2.0
+      with:
+        vulkan-query-version: latest 
+        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
+        vulkan-use-cache: true
+    - run: |
+        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
+        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}
