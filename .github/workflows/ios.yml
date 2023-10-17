@@ -18,7 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run: git submodule update --init --recursive
+      with:
+        submodules: recursive
     - uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: latest-stable

@@ -17,8 +17,9 @@ jobs:
         cfg: [ Debug, Release ]
 
     steps:
-    - uses: actions/checkout@v3.5
-    - run: git submodule update --init --recursive
+    - uses: actions/checkout@v4
+      with: 
+        submodules: recursive
     - uses: humbletim/setup-vulkan-sdk@v1.2.0
       with:
         vulkan-query-version: latest 
@@ -40,7 +41,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - run: git submodule update --init --recursive
+      with: 
+        submodules: recursive
     - uses: humbletim/setup-vulkan-sdk@v1.2.0
       with:
         vulkan-query-version: latest 
