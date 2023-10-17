@@ -1,21 +1,25 @@
-#include <cstdio>
+#include <iostream>
 
 #include <dragon/core.hpp>
-#include <dragon/graphics.cpp>
+#include <dragon/graphics.hpp>
 
-DgEngine engine;
-
-DgResult initEngine() {
-    DgResult r;
-    DgEngineCreateInfo cci{};
-    DgGraphicsEngineCreateInfo gci{};
-
-    r = dgInitGraphicsEngine(engine, cci, gci);
-    r = dgInitEngine(engine, cci);
-    if(r == DG_SUCCESS) return DG_SUCCESS;
-    printf("dgInitEngine failed with error code 0x%x", r);
-    abort(r);
-}
+using namespace Dragon;
 
 int main(void) {
+    EngineCreateInfo createInfo;
+    createInfo.appName = "Window Test";
+
+    Engine* engine = new Engine();
+
+    Graphics::Engine* graphicsEngine = new Graphics::Engine();
+
+    engine->addSubmodule(dynamic_cast<Submodule*>(graphicsEngine));
+    try {
+        engine->init(createInfo);
+    } catch(std::string error) {
+        std::cerr << error;
+        std::exit(1);
+    }
+    std::cout << "Successful\n";
+    return 0;
 }
