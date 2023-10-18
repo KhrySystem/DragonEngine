@@ -10,16 +10,17 @@ int main(void) {
     createInfo.appName = "Window Test";
 
     Engine* engine = new Engine();
-
     Graphics::Engine* graphicsEngine = new Graphics::Engine();
-
     engine->addSubmodule(dynamic_cast<Submodule*>(graphicsEngine));
     try {
         engine->init(createInfo);
+
+        while(graphicsEngine->areWindowsOpen()) {
+            engine->update();
+        }
     } catch(std::string error) {
         std::cerr << error;
         std::exit(1);
     }
-    std::cout << "Successful\n";
     return 0;
 }
