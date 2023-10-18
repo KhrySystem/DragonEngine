@@ -17,10 +17,15 @@ jobs:
         cfg: [ Debug, Release ]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Harden Runner
+      uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with: 
         submodules: recursive
-    - uses: humbletim/setup-vulkan-sdk@v1.2.0
+    - uses: humbletim/setup-vulkan-sdk@72eed4b9dbeac5de168f83da8e30b1d0f8ac7f14 # v1.2.0
       with:
         vulkan-query-version: latest 
         vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
@@ -40,10 +45,15 @@ jobs:
         cfg: [ Debug, Release ]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Harden Runner
+      uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with: 
         submodules: recursive
-    - uses: humbletim/setup-vulkan-sdk@v1.2.0
+    - uses: humbletim/setup-vulkan-sdk@72eed4b9dbeac5de168f83da8e30b1d0f8ac7f14 # v1.2.0
       with:
         vulkan-query-version: latest 
         vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
