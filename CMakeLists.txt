@@ -6,7 +6,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 project(DragonEngine VERSION 1.0.0.0)
 set(Dragon_FOUND CACHE BOOL "" ON)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_C_STANDARD 23)
 
 message(STATUS "Build started for ${PROJECT_NAME} Version ${PROJECT_VERSION}")
