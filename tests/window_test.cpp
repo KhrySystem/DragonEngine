@@ -14,6 +14,12 @@ int main(void) {
     engine->addSubmodule(dynamic_cast<Submodule*>(graphicsEngine));
     try {
         engine->init(createInfo);
+        
+        // Initial window created by default
+        Graphics::Window* window = graphicsEngine->getWindow(0);
+
+        window->setWindowSize(800, 400);
+        window->setWindowTitle("Window Test");
 
         while(graphicsEngine->areWindowsOpen()) {
             engine->update();
