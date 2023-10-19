@@ -20,7 +20,7 @@ jobs:
         cfg: [ Debug, Release ]
 
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+      group: '${{ matrix.type }} ${{ matrix.cfg }} ${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
       cancel-in-progress: true
 
     steps:
