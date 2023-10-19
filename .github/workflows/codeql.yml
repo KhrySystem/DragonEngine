@@ -32,6 +32,10 @@ jobs:
       contents: read
       security-events: write
 
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     strategy:
       fail-fast: false
       matrix:

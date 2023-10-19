@@ -11,6 +11,10 @@ permissions:
 
 jobs:
   android-10:
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     name: Android 10
     runs-on: ubuntu-latest
 

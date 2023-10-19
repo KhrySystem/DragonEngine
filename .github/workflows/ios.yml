@@ -19,6 +19,10 @@ jobs:
         type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
         cfg: [ Debug, Release ]
 
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     steps:
     - name: Harden Runner
       uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0

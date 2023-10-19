@@ -14,6 +14,10 @@ jobs:
     name: MacOS 13
     runs-on: macos-13
 
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     strategy:
       matrix:
         type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
