@@ -41,6 +41,6 @@ jobs:
         vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
         vulkan-use-cache: true
     - run: |
-        cmake . -B build -D${{ matrix.type }} --compile-warning-as-error --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
         cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
         cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}

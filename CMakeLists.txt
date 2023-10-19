@@ -78,6 +78,10 @@ if(Dragon_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
+if(Dragon_BUILD_DOCS)
+    add_subdirectory(docs)
+endif()
+
 if(Dragon_INSTALL)
     include(GNUInstallDirs)
     include(cmake/install.cmake)
