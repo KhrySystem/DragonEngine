@@ -13,3 +13,6 @@
 [submodule "modules/graphics"]
 	path = modules/graphics
 	url = ../DragonGraphics
+[submodule "docs"]
+	path = docs
+	url = ../DragonDocs
