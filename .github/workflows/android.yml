@@ -10,12 +10,12 @@ permissions:
   contents: read
 
 jobs:
-  android-10:
+  android:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
 
-    name: Android 10
+    name: Android
     runs-on: ubuntu-latest
 
     strategy:

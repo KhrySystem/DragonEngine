@@ -10,9 +10,9 @@ permissions:
   contents: read
 
 jobs:
-  ubuntu-2204:
-    name: Ubuntu 22.04
-    runs-on: ubuntu-22.04
+  ubuntu:
+    name: Ubuntu
+    runs-on: ubuntu-${{ matrix.os }}
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,6 +20,7 @@ jobs:
 
     strategy:
       matrix:
+        os: [22.04, 20.04]
         type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
         cfg: [ Debug, Release ]
 
@@ -38,35 +39,6 @@ jobs:
         vulkan-query-version: latest 
         vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
         vulkan-use-cache: true
-    - run: |
-        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-
-  ubuntu-2004:
-    name: Ubuntu 20.04
-    runs-on: ubuntu-20.04
-
-    strategy:
-      matrix:
-        type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
-        cfg: [ Debug, Release ]
-
-    steps:
-    - name: Harden Runner
-      uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
-      with:
-        egress-policy: audit
-
-    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with: 
-        submodules: recursive
-    - uses: humbletim/setup-vulkan-sdk@72eed4b9dbeac5de168f83da8e30b1d0f8ac7f14 # v1.2.0
-      with:
-        vulkan-query-version: latest 
-        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
-        vulkan-use-cache: true
-    - run: sudo apt update && sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libc6-dev
     - run: |
         cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
         cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}

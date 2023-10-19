@@ -11,8 +11,8 @@ permissions:
 
 jobs:
   macos-13:
-    name: MacOS 13
-    runs-on: macos-13
+    name: MacOS
+    runs-on: macos-${{ matrix.os }}
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,62 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
-        cfg: [ Debug, Release ]
-
-    steps:
-    - name: Harden Runner
-      uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
-      with:
-        egress-policy: audit
-
-    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with: 
-        submodules: recursive
-    - uses: humbletim/setup-vulkan-sdk@72eed4b9dbeac5de168f83da8e30b1d0f8ac7f14 # v1.2.0
-      with:
-        vulkan-query-version: latest 
-        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
-        vulkan-use-cache: true
-    - run: |
-        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-
-  macos-12:
-    name: MacOS 12
-    runs-on: macos-12
-
-    strategy:
-      matrix:
-        type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
-        cfg: [ Debug, Release ]
-
-    steps:
-    - name: Harden Runner
-      uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
-      with:
-        egress-policy: audit
-
-    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with: 
-        submodules: recursive
-    - uses: humbletim/setup-vulkan-sdk@72eed4b9dbeac5de168f83da8e30b1d0f8ac7f14 # v1.2.0
-      with:
-        vulkan-query-version: latest 
-        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
-        vulkan-use-cache: true
-    - run: |
-        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-
-  macos-11:
-    name: MacOS 11
-    runs-on: macos-11
-
-    strategy:
-      matrix:
+        os: [13, 12, 11]
         type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
         cfg: [ Debug, Release ]
 

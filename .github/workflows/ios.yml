@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  ios-11:
-    name: iOS 11
+  ios:
+    name: iOS
     runs-on: macos-latest
 
     strategy:
