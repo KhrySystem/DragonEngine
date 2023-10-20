@@ -24,6 +24,7 @@ int main(void) {
         while(graphicsEngine->areWindowsOpen()) {
             engine->update();
         }
+
     } catch(std::string error) {
         std::cerr << error;
         std::exit(1);
