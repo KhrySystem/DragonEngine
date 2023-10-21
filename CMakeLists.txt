@@ -16,7 +16,7 @@ option(Dragon_2D_RENDER "Toggle to optionally force only 2D graphics (No camera 
 option(Dragon_PACKAGE_BUILD "Toggle to optionally configure the CPack generator files"  OFF)
 option(Dragon_BUILD_EXAMPLES "Toggle to optionally build all the examples (dginfo is always built)" ON)
 option(Dragon_BUILD_TESTS "Toggle to optionally not build the tests for DragonEngine" OFF)
-option(Dragon_BUILD_DOCS "Toggle to optionally build the documentation (has no effect without Doxygen)" ON)
+option(Dragon_BUILD_DOCS "Toggle to optionally build the documentation (has no effect without Doxygen)" OFF)
 option(Dragon_BUILD_DEPENDENCY_DOCS "Toggle to optionally build the documentation for Dragon's source dependencies (VkBootstrap, VMA, etc.)" OFF)
 option(Dragon_NO_VULKAN "Toggle to build DragonEngine without any Vulkan or VMA support" OFF)
 if(NOT DEFINED Dragon_MAX_POINT_LIGHTS)
