@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.24)
 # Check if the CMP0077 policy is set and if not, set it to NEW
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
-project(DragonEngine VERSION 1.0.0.0)
+project(DragonEngine VERSION 0.1.0.0)
 set(Dragon_FOUND CACHE BOOL "" ON)
 
 set(CMAKE_CXX_STANDARD 23)
