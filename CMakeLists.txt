@@ -12,7 +12,7 @@ set(CMAKE_C_STANDARD 23)
 message(STATUS "Build started for ${PROJECT_NAME} Version ${PROJECT_VERSION}")
 
 option(Dragon_INSTALL "Toggle to optionally configure the install files for DragonEngine" ON)
-option(Dragon_2D_RENDER "Toggle to optionally force only 2D graphics (No camera initialization)"  ON)
+option(Dragon_2D_RENDER "Toggle to optionally force only 2D graphics (No camera initialization, shaders take in 2d position, etc.)"  ON)
 option(Dragon_PACKAGE_BUILD "Toggle to optionally configure the CPack generator files"  OFF)
 option(Dragon_BUILD_EXAMPLES "Toggle to optionally build all the examples (dginfo is always built)" ON)
 option(Dragon_BUILD_TESTS "Toggle to optionally not build the tests for DragonEngine" OFF)
