@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.24)
 
+# Vulkan package call has to be separated out since either GLSLC or glslangValidator 
+# will fufill the shader requirement of the compute engine and the graphics engine
+find_package(Vulkan REQUIRED)
+find_package(Vulkan COMPONENTS glslc glslangValidator)
+
 # Check if the CMP0077 policy is set and if not, set it to NEW
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
@@ -56,6 +61,20 @@ if(DragonCore_FOUND)
     else()
         find_package(DragonGraphics)
         if(DragonGraphics_FOUND)
+            message(CHECK_PASS "found binaries")
+        else()
+            message(CHECK_FAIL "not found")
+        endif()
+    endif()
+
+    message(CHECK_START "Finding Dragon::Compute")
+    if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/modules/compute/CMakeLists.txt)
+        set(DragonCompute_FOUND CACHE BOOL "" ON)
+        message(CHECK_PASS "found sources")
+        add_subdirectory(modules/compute)
+    else()
+        find_package(DragonCompute)
+        if(DragonCompute_FOUND)
             message(CHECK_PASS "found binaries")
         else()
             message(CHECK_FAIL "not found")
