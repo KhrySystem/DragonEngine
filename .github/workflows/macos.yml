@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [13, 12, 11]
+        os: [12, 13]
         type: [ BUILD_SHARED_LIBS=OFF, BUILD_SHARED_LIBS=ON ]
         cfg: [ Debug, Release ]
 
