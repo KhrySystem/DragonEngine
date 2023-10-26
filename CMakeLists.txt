@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-# Vulkan package call has to be separated out since either GLSLC or glslangValidator 
-# will fufill the shader requirement of the compute engine and the graphics engine
-find_package(Vulkan REQUIRED)
-find_package(Vulkan COMPONENTS glslc glslangValidator)
+find_package(Vulkan REQUIRED OPTIONAL_COMPONENTS glslc glslangValidator)
 
 # Check if the CMP0077 policy is set and if not, set it to NEW
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
@@ -27,13 +24,15 @@ if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
     message(STATUS "Build started for ${PROJECT_NAME} Version ${PROJECT_VERSION}")
 endif()
 
-option(Dragon_INSTALL "Toggle to optionally configure the install files for DragonEngine" OFF)
-option(Dragon_PACKAGE_BUILD "Toggle to optionally configure the CPack generator files"  OFF)
+option(Dragon_INSTALL "Toggle to optionally configure the install files for DragonEngine" ON)
+option(Dragon_PACKAGE_BUILD "Toggle to optionally configure the CPack generator files"  ON)
 option(Dragon_BUILD_EXAMPLES "Toggle to optionally build all the examples (dginfo is always built)" ON)
 option(Dragon_BUILD_TESTS "Toggle to optionally not build the tests for DragonEngine" OFF)
-option(Dragon_BUILD_DOCS "Toggle to optionally build the documentation (has no effect without Doxygen)" OFF)
+option(Dragon_BUILD_DOCS "Toggle to optionally build the documentation (has no effect without Doxygen)" ON)
 option(Dragon_BUILD_DEPENDENCY_DOCS "Toggle to optionally build the documentation for Dragon's source dependencies (VkBootstrap, VMA, etc.)" OFF)
 option(Dragon_NO_VULKAN "Toggle to build DragonEngine without any Vulkan or VMA support" OFF)
+
+
 
 message(CHECK_START "Finding Dragon Submodules")
 unset(missingComponents)
@@ -102,9 +101,5 @@ if(Dragon_BUILD_DOCS)
 endif()
 
 if(Dragon_INSTALL)
-    include(GNUInstallDirs)
     include(cmake/install.cmake)
-    if(Dragon_PACKAGE_BUILD)
-        include(cmake/package.cmake)
-    endif()
 endif()
