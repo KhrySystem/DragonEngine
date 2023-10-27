@@ -16,3 +16,9 @@
 [submodule "docs"]
 	path = docs
 	url = ../DragonDocs
+[submodule "modules/particle"]
+	path = modules/particle
+	url = ../DragonParticle
+[submodule "modules/raytrace"]
+	path = modules/raytrace
+	url = ../DragonRaytrace
