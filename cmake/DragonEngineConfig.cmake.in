@@ -2,6 +2,8 @@
 
 include(CMakeFindDependencyMacro)
 
+set(DragonEngine_VERSION @DragonEngine_VERSION@)
+
 find_dependency(Vulkan)
 find_dependency(GLFW)
 find_dependency(fmt)
