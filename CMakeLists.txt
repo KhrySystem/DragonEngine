@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 
 find_package(Vulkan REQUIRED OPTIONAL_COMPONENTS glslc glslangValidator)
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 # Check if the CMP0077 policy is set and if not, set it to NEW
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
