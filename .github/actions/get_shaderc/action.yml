@@ -14,12 +14,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
-  - run: |
+  - shell: bash
+    run: |
       git clone https://github.com/google/shaderc ${{inputs.source_dir}}
       cd ${{inputs.source_dir}}
       ./utils/git-sync-deps
 
-  - run: |
+  - shell: bash
+    run: |
       cmake ${{inputs.source_dir}}
       cmake --build build/shaderc --source ${{inputs.source_dir}}
 
