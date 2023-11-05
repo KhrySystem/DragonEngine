@@ -43,7 +43,7 @@ jobs:
         vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang, SPIRV-Tools
         vulkan-use-cache: true
 
-    - uses: ./.github/actions/get_shaderc.yml
+    - uses: ./.github/actions/get_shaderc
 
     - run: |
         cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
