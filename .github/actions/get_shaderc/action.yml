@@ -21,6 +21,6 @@ runs:
 
   - shell: bash
     run: |
-      cmake ${{inputs.source_dir}} -Bbuild/shaderc
+      cmake ${{inputs.source_dir}} -Bbuild/shaderc -DSHADERC_SKIP_TESTS:BOOL=OFF -DSHADERC_SKIP_EXAMPLES:BOOL=OFF -Wno-dev
       cmake --build build/shaderc
 
