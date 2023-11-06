@@ -42,7 +42,7 @@ jobs:
 
     - uses: ./.github/actions/get_shaderc
 
-    - run: |
-        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}
+    - uses: ./.github/actions/build
+      with:
+        type: ${{ matrix.type }}
+        config: ${{ matrix.cfg }}

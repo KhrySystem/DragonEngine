@@ -1,0 +1,30 @@
+name: Build DragonEngine
+description: Runs the commands to build DragonEngine from source and installs it
+
+inputs: 
+  type:
+    required: false
+    description: Whether or not to build shared libs
+    default: BUILD_SHARED_LIBS:BOOL=ON
+  config:
+    required: false
+    description: The CMake configuration to build (Debug, Release, MinSizeRel, or RelWithDebInfo)
+    default: Release
+  install_dir:
+    required: false
+    description: The directory to install this into
+    default: install
+  build_dir:
+    required: false
+    description: The directory to build the files into
+    default: build
+
+runs:
+  using: 'composite'
+  steps:
+  - shell: bash
+    run: |
+      - run: |
+        cmake . -B ${{ inputs.build_dir }} -D${{ inputs.type }} --install-prefix ${{ inputs.install_dir }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+        cmake --build ${{ inputs.build_dir }} --config ${{ inputs.config }}
+        cmake --install ${{ inputs.build_dir }} --config ${{ inputs.config }}

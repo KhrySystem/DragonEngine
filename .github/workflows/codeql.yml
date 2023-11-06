@@ -73,10 +73,10 @@ jobs:
 
       - uses: ./.github/actions/get_shaderc
 
-      - run: |
-          cmake . -B build --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-          cmake --build ${{ github.workspace }}/build
-          cmake --install ${{ github.workspace }}/build
+      - uses: ./.github/actions/build
+        with:
+          type: -DBUILD_SHARED_LIBS:BOOL=OFF
+          config: Release
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@0116bc2df50751f9724a2e35ef1f24d22f90e4e1 # v2.22.3
