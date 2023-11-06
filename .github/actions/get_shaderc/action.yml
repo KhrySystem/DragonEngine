@@ -25,6 +25,7 @@ runs:
       repository: google/shaderc
 
   - id: ref-check
+    shell: bash
     run: |
       cd ${{inputs.source_dir}}
       echo "ref=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
