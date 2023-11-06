@@ -5,7 +5,11 @@ inputs:
   source_dir:
     description: ''
     required: false
-    default: 'SHADERC_DIR'
+    default: SHADERC_DIR
+  build_dir:
+    description: ""
+    required: false
+    default: build/shaderc
   build_mode:
     description: ''
     required: false
@@ -14,13 +18,25 @@ inputs:
 runs:
   using: 'composite'
   steps:
-  - shell: bash
-    run: |
-      git clone https://github.com/google/shaderc ${{inputs.source_dir}}
-      cd ${{inputs.source_dir}}
 
   - shell: bash
     run: |
-      cmake ${{inputs.source_dir}} -Bbuild/shaderc -DSHADERC_SKIP_TESTS:BOOL=OFF -DSHADERC_SKIP_EXAMPLES:BOOL=OFF -Wno-dev
-      cmake --build build/shaderc
+      git clone https://github.com/google/shaderc ${{inputs.source_dir}}
+
+  - uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84
+    id: cache-check
+    with:
+      key: ${{github.os}}-shaderc-${{ hashFiles('${{inputs.source_dir}}/.git/ORIG_HEAD')}}
+      path: |
+        ${{inputs.build_dir}}
+        ${{inputs.install_dir}}
+
+  - shell: bash
+    if: steps.cache-check.outputs.cache-hit != 'true'
+    run: |
+      cd ${{inputs.source_dir}} && \
+      cmake ${{inputs.source_dir}} -B${{inputs.build_dir}} -DSHADERC_SKIP_TESTS:BOOL=OFF -DSHADERC_SKIP_EXAMPLES:BOOL=OFF -Wno-dev && \
+      cmake --build ${{inputs.build_dir}} && \
+      cd ${{inputs.build_dir}} && \
+      cmake --install
 
