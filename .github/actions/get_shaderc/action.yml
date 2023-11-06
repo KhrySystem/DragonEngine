@@ -42,7 +42,7 @@ runs:
   - shell: bash
     if: steps.cache-check.outputs.cache-hit != 'true'
     run: |
-      cmake ${{inputs.source_dir}} -B${{inputs.build_dir}} -DSHADERC_SKIP_TESTS:BOOL=OFF -DSHADERC_SKIP_EXAMPLES:BOOL=OFF -Wno-dev && \
+      cmake ${{inputs.source_dir}} -B${{inputs.build_dir}} -DSHADERC_SKIP_TESTS:BOOL=ON -DSHADERC_SKIP_EXAMPLES:BOOL=ON -Wno-dev && \
       cmake --build ${{inputs.build_dir}} && \
       cd ${{inputs.build_dir}} && \
       cmake --install
