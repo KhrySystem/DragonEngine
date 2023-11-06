@@ -13,11 +13,11 @@ inputs:
   install_dir:
     required: false
     description: The directory to install this into
-    default: install
+    default: ${{github.workspace}}/install
   build_dir:
     required: false
     description: The directory to build the files into
-    default: build
+    default: ${{github.workspace}}/build
 
 runs:
   using: 'composite'
