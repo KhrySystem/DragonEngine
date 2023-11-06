@@ -43,7 +43,7 @@ jobs:
         vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang, SPIRV-Tools
         vulkan-use-cache: true
 
-    - uses: ./.github/actions/get_shaderc
+    - uses: ./.github/actions/get_deps
 
     - uses: ./.github/actions/build
       with:
