@@ -7,8 +7,11 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter)
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
 string(TIMESTAMP maj "%Y")
+math(EXPR maj ${maj})
 string(TIMESTAMP min "%m")
+math(EXPR min ${min})
 string(TIMESTAMP rev "%d")
+math(EXPR rev ${rev})
 
 project(DragonEngine VERSION ${maj}.${min}.${rev}.0)
 set(Dragon_FOUND CACHE BOOL "" ON)
