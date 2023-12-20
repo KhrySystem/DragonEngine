@@ -35,6 +35,9 @@ jobs:
         submodules: recursive
 
     - uses: ./.github/actions/get_deps
+      with: 
+        install_dir: ${{github.workspace}}\install
+        build_dir: ${{github.workspace}}\build
 
     - uses: ./.github/actions/build
       with:

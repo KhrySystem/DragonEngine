@@ -24,7 +24,6 @@ runs:
   steps:
   - shell: bash
     run: |
-      - run: |
-        cmake . -B ${{ inputs.build_dir }} -D${{ inputs.type }} --install-prefix ${{ inputs.install_dir }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-        cmake --build ${{ inputs.build_dir }} --config ${{ inputs.config }}
-        cmake --install ${{ inputs.build_dir }} --config ${{ inputs.config }}
+      cmake . -B ${{ inputs.build_dir }} -D${{ inputs.type }} --install-prefix ${{ inputs.install_dir }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+      cmake --build ${{ inputs.build_dir }} --config ${{ inputs.config }}
+      cmake --install ${{ inputs.build_dir }} --config ${{ inputs.config }}

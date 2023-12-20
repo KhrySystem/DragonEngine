@@ -17,7 +17,7 @@ project(DragonEngine VERSION ${maj}.${min}.${rev}.0)
 set(Dragon_FOUND CACHE BOOL "" ON)
 
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    set(FMT_MASTER_PROJECT ON)
+    set(DragonEngine_MASTER_PROJECT CACHE BOOL ON)
     message(STATUS "CMake version: ${CMAKE_VERSION}")
 endif ()
 
@@ -29,6 +29,7 @@ if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 endif()
 
 option(Dragon_INSTALL "Toggle to optionally configure the install files for DragonEngine" ON)
+option(Dragon_INSTALL_SOURCE "Toggle to optionally install the C++ source files for DragonEngine" ${DragonEngine_MASTER_PROJECT})
 option(Dragon_PACKAGE_BUILD "Toggle to optionally configure the CPack generator files"  ON)
 option(Dragon_BUILD_EXAMPLES "Toggle to optionally build all the examples (dginfo is always built)" ON)
 option(Dragon_BUILD_TESTS "Toggle to optionally not build the tests for DragonEngine" ON)
