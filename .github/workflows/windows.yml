@@ -33,12 +33,13 @@ jobs:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with: 
         submodules: recursive
-    - uses: humbletim/setup-vulkan-sdk@72eed4b9dbeac5de168f83da8e30b1d0f8ac7f14 # v1.2.0
+
+    - uses: ./.github/actions/get_deps
+      with: 
+        install_dir: ${{github.workspace}}\install
+        build_dir: ${{github.workspace}}\build
+
+    - uses: ./.github/actions/build
       with:
-        vulkan-query-version: latest 
-        vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
-        vulkan-use-cache: true
-    - run: |
-        cmake . -B build -D${{ matrix.type }} --install-prefix ${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-        cmake --build ${{ github.workspace }}/build --config ${{ matrix.cfg }}
-        cmake --install ${{ github.workspace }}/build --config ${{ matrix.cfg }}
+        type: ${{ matrix.type }}
+        config: ${{ matrix.cfg }}

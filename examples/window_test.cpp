@@ -5,22 +5,25 @@
 
 using namespace Dragon;
 
-int main(void) {
-    EngineCreateInfo createInfo;
-    createInfo.appName = "Window Test";
+const std::vector<Graphics::Vertex> vertices = {
+    {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+    {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+    {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}}
+};
 
-    Engine* engine = new Engine();
-    Graphics::Engine* graphicsEngine = new Graphics::Engine();
-    engine->addSubmodule(dynamic_cast<Submodule*>(graphicsEngine));
+int main(void) {
     try {
+        EngineCreateInfo createInfo;
+        createInfo.appName = "Window Test";
+
+        Engine* engine = new Engine();
+        Graphics::Engine* graphicsEngine = new Graphics::Engine();
+        engine->addSubmodule(dynamic_cast<Submodule*>(graphicsEngine));
+
+        Graphics::Window* window = graphicsEngine->createWindow(800, 400, "Window Test");
+
         engine->init(createInfo);
         
-        // Initial window created by default
-        Graphics::Window* window = graphicsEngine->getWindow(0);
-
-        window->setWindowSize(800, 400);
-        window->setWindowTitle("Window Test");
-
         while(graphicsEngine->areWindowsOpen()) {
             engine->update();
         }

@@ -1,0 +1,24 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+set(DragonEngine_VERSION @DragonEngine_VERSION@)
+
+find_dependency(Vulkan)
+find_dependency(GLFW)
+find_dependency(fmt)
+
+set(_supported_comps Audio Compute Core Graphics Particle Physics Raytrace)
+
+include(${CMAKE_CURRENT_LIST_DIR}/DragonEngine_CoreTargets.cmake)
+
+foreach(comp ${DragonEngine_FIND_COMPONENTS})
+    if(NOT ";${_supported_comps};" MATCHES ";${_comp};")
+        set(DragonEngine_FOUND False)
+        set(DragonEngine_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
+    endif()
+
+    include(${CMAKE_CURRENT_LIST_DIR}/DragonEngine_${comp}Targets.cmake)
+endforeach()
+
+unset(_supported_comps)

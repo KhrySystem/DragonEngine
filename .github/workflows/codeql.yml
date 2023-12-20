@@ -62,17 +62,12 @@ jobs:
           # If you wish to specify custom queries, you can do so here or in a config file.
           # By default, queries listed here will override any specified in a config file.
           # Prefix the list here with "+" to use these queries and those in the config file.
+      - uses: ./.github/actions/get_deps
 
-      - run: sudo apt update && sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libc6-dev
-      - uses: humbletim/setup-vulkan-sdk@72eed4b9dbeac5de168f83da8e30b1d0f8ac7f14 # v1.2.0
+      - uses: ./.github/actions/build
         with:
-          vulkan-query-version: latest 
-          vulkan-components: Vulkan-Headers, Vulkan-Loader, Glslang
-          vulkan-use-cache: true
-      - run: |
-          cmake . -B build --install-prefix ${{ github.workspace }}/install -DCMAKE_INSTALL_DIR=${{ github.workspace }}/install -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-          cmake --build ${{ github.workspace }}/build
-          cmake --install ${{ github.workspace }}/build
+          type: -DBUILD_SHARED_LIBS:BOOL=OFF
+          config: Release
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@0116bc2df50751f9724a2e35ef1f24d22f90e4e1 # v2.22.3
